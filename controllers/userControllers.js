@@ -161,9 +161,15 @@ exports.getUserWithEmail = async (req, res) => {
           message: "user not found",
         });
       } else {
+        const dataTransferObject = {
+          name: result[0].name,
+          surname: result[0].surname,
+          color: result[0].color,
+          email: result[0].email,
+        };
         return res.status(200).json({
           success: true,
-          result,
+          user: dataTransferObject,
         });
       }
     });
