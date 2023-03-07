@@ -12,9 +12,11 @@ app.use(cors());
 
 //Importing Routes
 const userRoutes = require("./routes/userRoutes");
+const boardRoutes = require("./routes/boardRoutes");
 
 //Using Routes
 app.use("/api/v1", userRoutes);
+app.use("/api/v1", boardRoutes);
 
 app.listen(process.env.PORT, (req, res) => {
   console.log(`Server listening 🎵 on port ${process.env.PORT}`);
