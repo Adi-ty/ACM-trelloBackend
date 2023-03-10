@@ -38,3 +38,66 @@ exports.create = async (req, res) => {
 //     });
 //   }
 // };
+exports.getAll = async (req, res) => {
+  try {
+    db.query(`select * from board`, (error, result) => {
+      if (error) {
+        throw error;
+      } else {
+        return res.status(200).send(result);
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+exports.getById = async (req, res) => {
+  try {
+    const { id } = req.param;
+    db.query(`select * from board where id = ?`, [id], (error, result) => {
+      if (error) {
+        throw error;
+      } else {
+        if (result.length === 0) {
+          // If no matching row found
+          return res.status(404).json({
+            success: false,
+            message: `Board with id ${id} not found`,
+          });
+        } else {
+          // If a matching row found
+          return res.status(200).send(result);
+        }
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+exports.getActivityById = async (req, res) => {
+  try {
+    const { id } = req.param;
+    db.query(
+      `select activity from board where id= ?`,
+      [id],
+      (error, result) => {
+        if (error) {
+          throw error;
+        } else {
+          return res.status(200).send(result);
+        }
+      }
+    );
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
