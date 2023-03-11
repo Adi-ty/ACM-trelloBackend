@@ -43,6 +43,10 @@ exports.getAll = async (req, res) => {
     db.query(`select * from board`, (error, result) => {
       if (error) {
         throw error;
+        // res.status(500).json({
+        //   success: false,
+        //   message: error.message,
+        // });
       } else {
         return res.status(200).send(result);
       }
